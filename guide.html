@@ -16,10 +16,10 @@
             </div>
         </div>
         <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="guide.html" style="color: var(--gold);">Guide</a>
-            <a href="#">Shop</a>
-            <a href="#">Contact us</a>
+            <a href="index.html">← Home</a>
+            <a href="guide.html" style="color: var(--gold); border-bottom: 2px solid var(--gold);">📚 Guide</a>
+            <button type="button" class="ghost-button" id="guide-theme-toggle" style="margin-left: auto;">🌙 Theme</button>
+            <span id="guide-theme-label" style="color: var(--gold); margin-right: 8px;"></span>
         </nav>
     </header>
 
@@ -208,14 +208,70 @@
                 </section>
 
                 <!-- Footer -->
-                <section class="guide-section" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                    <p style="color: var(--muted); font-size: 0.9rem;">
+                <section class="guide-section" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--panel-border);">
+                    <p style="color: var(--muted); font-size: 0.9rem; font-family: var(--font-family);">
                         Made with ❤️ by Waleed khaled<br>
-                        <a href="index.html" style="color: var(--gold); text-decoration: none;">← Back to Editor</a>
+                        <a href="index.html" style="color: var(--gold); text-decoration: none; font-family: var(--font-family);">← Back to Editor</a>
                     </p>
                 </section>
             </div>
         </section>
     </main>
+
+    <script>
+        const THEMES = ["theme-violet", "theme-amber", "theme-ocean", "theme-forest", "theme-sunset", "theme-cyberpunk"];
+        
+        function getThemeSymbol(themeName) {
+            const symbols = {
+                "theme-violet": "🌙",
+                "theme-amber": "⭐",
+                "theme-ocean": "🌊",
+                "theme-forest": "🌿",
+                "theme-sunset": "🌅",
+                "theme-cyberpunk": "⚡"
+            };
+            return symbols[themeName] || "🎨";
+        }
+
+        function formatThemeName(themeName) {
+            return themeName.replace("theme-", "").charAt(0).toUpperCase() + themeName.replace("theme-", "").slice(1);
+        }
+
+        // Initialize theme
+        let currentThemeIndex = 0;
+        const themeButton = document.querySelector("#guide-theme-toggle");
+        const themeLabel = document.querySelector("#guide-theme-label");
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem("selectedTheme");
+        if (savedTheme && THEMES.includes(savedTheme)) {
+            currentThemeIndex = THEMES.indexOf(savedTheme);
+        }
+
+        function updateTheme() {
+            const newTheme = THEMES[currentThemeIndex];
+            
+            THEMES.forEach(theme => {
+                document.body.classList.remove(theme);
+            });
+            
+            document.body.classList.add(newTheme);
+            
+            const symbol = getThemeSymbol(newTheme);
+            themeButton.textContent = `${symbol} Theme`;
+            themeLabel.textContent = formatThemeName(newTheme);
+            
+            localStorage.setItem("selectedTheme", newTheme);
+        }
+
+        updateTheme();
+
+        if (themeButton) {
+            themeButton.addEventListener("click", () => {
+                currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
+                updateTheme();
+            });
+        }
+    </script>
 </body>
 </html>

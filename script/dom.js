@@ -7,6 +7,7 @@ function createEditorLayout() {
                     <div class="header-controls">
                         <button type="button" class="ghost-button" id="theme-toggle">🌙 Theme</button>
                         <span class="theme-label" id="theme-info">Violet</span>
+                        <button type="button" class="ghost-button" id="pdf-export">📄 PDF</button>
                         <button type="button" class="ghost-button" id="help-button">? Guide</button>
                     </div>
                 </div>

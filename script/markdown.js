@@ -1,36 +1,60 @@
 function parseMarkdown(text) {
     const lines = text.split(/\n/);
-    const html = lines.map((line) => {
+    const html = [];
+    let currentList = [];
+
+    for (const line of lines) {
         const trimmed = line.trim();
 
         if (!trimmed) {
-            return "";
+            // Empty line - flush any open list and add empty paragraph
+            if (currentList.length > 0) {
+                html.push(`<ul>${currentList.join("")}</ul>`);
+                currentList = [];
+            }
+            continue;
         }
 
         if (trimmed.startsWith("# ")) {
-            return `<h1>${trimmed.slice(2)}</h1>`;
+            // Flush list before heading
+            if (currentList.length > 0) {
+                html.push(`<ul>${currentList.join("")}</ul>`);
+                currentList = [];
+            }
+            html.push(`<h1>${formatInline(trimmed.slice(2))}</h1>`);
+        } else if (trimmed.startsWith("## ")) {
+            // Flush list before heading
+            if (currentList.length > 0) {
+                html.push(`<ul>${currentList.join("")}</ul>`);
+                currentList = [];
+            }
+            html.push(`<h2>${formatInline(trimmed.slice(3))}</h2>`);
+        } else if (trimmed.startsWith("- ")) {
+            // Add to current list
+            currentList.push(`<li>${formatInline(trimmed.slice(2))}</li>`);
+        } else if (trimmed.startsWith("> ")) {
+            // Flush list before blockquote
+            if (currentList.length > 0) {
+                html.push(`<ul>${currentList.join("")}</ul>`);
+                currentList = [];
+            }
+            html.push(`<blockquote>${formatInline(trimmed.slice(2))}</blockquote>`);
+        } else {
+            // Regular paragraph - flush list first
+            if (currentList.length > 0) {
+                html.push(`<ul>${currentList.join("")}</ul>`);
+                currentList = [];
+            }
+            html.push(`<p>${formatInline(trimmed)}</p>`);
         }
+    }
 
-        if (trimmed.startsWith("## ")) {
-            return `<h2>${trimmed.slice(3)}</h2>`;
-        }
+    // Flush any remaining list
+    if (currentList.length > 0) {
+        html.push(`<ul>${currentList.join("")}</ul>`);
+    }
 
-        if (trimmed.startsWith("- ")) {
-            return `<li>${trimmed.slice(2)}</li>`;
-        }
-
-        if (trimmed.startsWith("> ")) {
-            return `<blockquote>${trimmed.slice(2)}</blockquote>`;
-        }
-
-        return `<p>${formatInline(trimmed)}</p>`;
-    });
-
-    const listItems = html.filter((entry) => entry.startsWith("<li>"));
-    const nonListItems = html.filter((entry) => !entry.startsWith("<li>"));
-    const groupedItems = listItems.length ? [`<ul>${listItems.join("")}</ul>`] : [];
-
-    return [...nonListItems, ...groupedItems].join("\n");
+    return html.join("\n");
 }
 
 function formatInline(text) {

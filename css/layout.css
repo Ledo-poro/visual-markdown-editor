@@ -5,6 +5,7 @@
     padding: 18px 28px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.15);
 }
 
 .brand {
@@ -20,9 +21,10 @@
     place-items: center;
     border-radius: 14px;
     background: linear-gradient(135deg, var(--gold), var(--purple));
-    color: #130b23;
+    color: var(--bg-accent);
     font-weight: 800;
     box-shadow: var(--shadow);
+    font-size: 1.2rem;
 }
 
 .eyebrow {
@@ -31,11 +33,14 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     font-size: 0.72rem;
+    font-weight: 600;
 }
 
 .brand h1 {
     margin: 0;
     font-size: 1.3rem;
+    font-family: var(--font-family);
+    color: var(--text);
 }
 
 .nav-links {
@@ -50,6 +55,7 @@
     padding: 8px 10px;
     border-radius: 999px;
     transition: 0.25s ease;
+    font-family: var(--font-family);
 }
 
 .nav-links a:hover {
@@ -93,6 +99,7 @@
     padding: 6px 12px;
     background: rgba(248, 195, 95, 0.08);
     border-radius: 6px;
+    font-family: var(--font-family);
 }
 
 .badge {
@@ -102,6 +109,7 @@
     color: var(--gold);
     border: 1px solid rgba(248, 195, 95, 0.35);
     font-size: 0.86rem;
+    font-family: var(--font-family);
 }
 
 .grid {
@@ -121,6 +129,8 @@
 .preview-wrapper span {
     color: var(--muted);
     font-size: 0.92rem;
+    font-family: var(--font-family);
+    font-weight: 500;
 }
 
 #editor-input,
@@ -130,6 +140,8 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(13, 10, 23, 0.94);
     padding: 18px;
+    font-family: "Monaco", "Courier New", monospace;
+    font-size: 0.95rem;
 }
 
 #editor-input {
@@ -148,25 +160,33 @@
     overflow: auto;
     line-height: 1.65;
     color: var(--text);
+    font-family: var(--font-family);
 }
 
 .preview-output h1,
 .preview-output h2,
 .preview-output h3 {
-    color: #ffe0a2;
+    color: var(--gold-strong);
+    font-family: var(--font-family);
 }
 
 .preview-output strong {
     color: var(--gold);
+    font-weight: 700;
 }
 
 .preview-output em {
-    color: #d9c7ff;
+    color: var(--purple);
+    font-style: italic;
 }
 
 .preview-output ul,
 .preview-output ol {
     padding-left: 20px;
+}
+
+.preview-output li {
+    margin: 8px 0;
 }
 
 .preview-output blockquote {
@@ -181,6 +201,8 @@
     background: rgba(255, 255, 255, 0.06);
     padding: 2px 6px;
     border-radius: 6px;
+    color: var(--purple);
+    font-family: "Monaco", "Courier New", monospace;
 }
 
 @media (max-width: 840px) {
