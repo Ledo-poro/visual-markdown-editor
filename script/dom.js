@@ -4,7 +4,11 @@ function createEditorLayout() {
             <div class="panel">
                 <div class="panel-header">
                     <div class="badge">Live markdown preview</div>
-                    <button type="button" class="ghost-button" id="theme-toggle">Toggle theme</button>
+                    <div class="header-controls">
+                        <button type="button" class="ghost-button" id="theme-toggle">🌙 Theme</button>
+                        <span class="theme-label" id="theme-info">Violet</span>
+                        <button type="button" class="ghost-button" id="help-button">? Guide</button>
+                    </div>
                 </div>
                 <div class="grid">
                     <div class="editor-wrapper">
