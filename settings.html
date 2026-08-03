@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-page {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .settings-section {
+            margin: 30px 0;
+            padding: 24px;
+            background: var(--purple-soft);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+        }
+
+        .settings-section h2 {
+            color: var(--gold);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-family);
+        }
+
+        .settings-section p {
+            color: var(--muted);
+            font-family: var(--font-family);
+            line-height: 1.6;
+        }
+
+        .setting-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: center;
+            margin: 24px 0;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .setting-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            color: var(--text);
+            font-family: var(--font-family);
+        }
+
+        .setting-label h3 {
+            margin: 0 0 8px 0;
+            color: var(--gold-strong);
+            font-size: 16px;
+        }
+
+        .setting-label p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .setting-control {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .theme-display {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, var(--purple-soft), var(--gold) 100%);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: var(--font-family);
+            font-weight: 600;
+        }
+
+        .theme-symbol {
+            font-size: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .settings-button {
+            padding: 12px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--gold);
+            background: var(--purple-soft);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-family);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .settings-button:hover {
+            background: linear-gradient(135deg, var(--purple-soft), var(--gold) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .settings-button:active {
+            transform: translateY(0);
+        }
+
+        .settings-button.primary {
+            background: linear-gradient(135deg, var(--gold), var(--purple));
+            color: var(--bg-base);
+        }
+
+        .settings-button.primary:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .theme-option {
+            padding: 12px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: var(--purple-soft);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-family: var(--font-family);
+        }
+
+        .theme-option:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .theme-option.active {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, var(--purple-soft), var(--gold) 100%);
+            font-weight: 700;
+        }
+
+        .theme-option-symbol {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .theme-option-name {
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 24px;
+            font-family: var(--font-family);
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--gold-strong);
+            gap: 12px;
+        }
+
+        .settings-title {
+            color: var(--gold);
+            font-size: 2.2rem;
+            margin: 24px 0;
+            font-family: var(--font-family);
+        }
+
+        .info-box {
+            padding: 16px;
+            background: var(--purple-soft);
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            margin: 16px 0;
+            color: var(--text);
+            font-family: var(--font-family);
+        }
+
+        .keyboard-shortcuts {
+            display: grid;
+            gap: 12px;
+        }
+
+        .shortcut {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+
+        .shortcut-key {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: "Monaco", monospace;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .setting-item {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .setting-control {
+                justify-content: flex-start;
+            }
+
+            .settings-title {
+                font-size: 1.8rem;
+            }
+
+            .theme-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
+    <title>Settings | Visual Markdown Editor</title>
+</head>
+<body class="theme-violet">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">⚙️</div>
+            <div>
+                <p class="eyebrow">Configuration</p>
+                <h1>Settings</h1>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">← Back to Editor</a>
+            <a href="guide.html">📚 Guide</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="app-shell">
+            <div class="panel">
+                <a href="index.html" class="back-link">← Back to Editor</a>
+
+                <h2 class="settings-title">⚙️ Settings & Preferences</h2>
+
+                <div class="settings-actions" id="settings-actions" style="display: none; justify-content: flex-end; margin-bottom: 20px;">
+                    <button type="button" class="settings-button primary" id="apply-settings">
+                        ✅ Apply changes
+                    </button>
+                </div>
+
+                <!-- Theme Settings -->
+                <section class="settings-section">
+                    <h2>🎨 Theme Settings</h2>
+                    <p>Customize your editor appearance with one of 6 beautiful themes</p>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h3>Current Theme</h3>
+                            <p>Your selected theme preference</p>
+                        </div>
+                        <div class="setting-control">
+                            <div class="theme-display">
+                                <span class="theme-symbol" id="current-theme-symbol">🌙</span>
+                                <span id="current-theme-name">Violet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        💡 Tip: Your theme preference is automatically saved and will be restored when you return.
+                    </div>
+
+                    <h3 style="color: var(--gold); margin-top: 20px;">Choose a Theme:</h3>
+                    <div class="theme-grid" id="theme-selector">
+                        <!-- Theme buttons will be generated here -->
+                    </div>
+                </section>
+
+                <!-- PDF Export Settings -->
+                <section class="settings-section">
+                    <h2>📄 PDF Export</h2>
+                    <p>Export your markdown as a beautifully styled PDF with colors preserved from your current theme</p>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h3>Export to PDF</h3>
+                            <p>Download your markdown with theme colors</p>
+                        </div>
+                        <div class="setting-control">
+                            <button type="button" class="settings-button primary" id="pdf-export">
+                                📄 Export PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        ✨ The PDF will include:
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; color: var(--text);">
+                            <li>All colors from your current theme</li>
+                            <li>Text formatting (bold, italic, code)</li>
+                            <li>Proper spacing and layout</li>
+                            <li>High-quality output (2x resolution)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Editor Preferences -->
+                <section class="settings-section">
+                    <h2>✏️ Editor Preferences</h2>
+                    <p>Customize how the editor behaves</p>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h3>Live Preview</h3>
+                            <p>See changes instantly as you type</p>
+                        </div>
+                        <div class="setting-control">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="live-preview" checked style="width: 20px; height: 20px; cursor: pointer;">
+                                <label for="live-preview" style="color: var(--text); cursor: pointer;">Enabled</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        💡 Toggle live preview on or off. If disabled, the editor will not update the preview while you type.
+                    </div>
+                </section>
+
+                <!-- Markdown Support -->
+                <section class="settings-section">
+                    <h2>📝 Supported Markdown</h2>
+                    <p>All markdown syntax supported in the editor</p>
+
+                    <div style="overflow-x: auto;">
+                        <table class="guide-table" style="margin-top: 16px;">
+                            <tr>
+                                <td><strong>Syntax</strong></td>
+                                <td><strong>Output</strong></td>
+                                <td><strong>Example</strong></td>
+                            </tr>
+                            <tr>
+                                <td><code>#</code></td>
+                                <td>Heading 1</td>
+                                <td># My Title</td>
+                            </tr>
+                            <tr>
+                                <td><code>##</code></td>
+                                <td>Heading 2</td>
+                                <td>## Subtitle</td>
+                            </tr>
+                            <tr>
+                                <td><code>**text**</code></td>
+                                <td>Bold</td>
+                                <td>**Bold text**</td>
+                            </tr>
+                            <tr>
+                                <td><code>*text*</code></td>
+                                <td>Italic</td>
+                                <td>*Italic text*</td>
+                            </tr>
+                            <tr>
+                                <td><code>`code`</code></td>
+                                <td>Code</td>
+                                <td>`const x = 5`</td>
+                            </tr>
+                            <tr>
+                                <td><code>-</code></td>
+                                <td>Bullet</td>
+                                <td>- List item</td>
+                            </tr>
+                            <tr>
+                                <td><code>></code></td>
+                                <td>Quote</td>
+                                <td>> Quote text</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- About -->
+                <section class="settings-section">
+                    <h2>ℹ️ About</h2>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <h3>Visual Markdown Editor</h3>
+                            <p>Version 3.0</p>
+                        </div>
+                        <div class="setting-control" style="text-align: right;">
+                            <div>
+                                <p style="margin: 0; color: var(--gold);">✨ Production Ready</p>
+                                <p style="margin: 4px 0 0 0; color: var(--muted); font-size: 0.9rem;">Created by Waleed khaled</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Features:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; color: var(--text);">
+                            <li>✅ Live markdown preview</li>
+                            <li>✅ 6 beautiful color themes</li>
+                            <li>✅ PDF export with color preservation</li>
+                            <li>✅ Perfect input/output order</li>
+                            <li>✅ Mobile responsive design</li>
+                            <li>✅ Theme persistence</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--panel-border);">
+                    <p style="color: var(--muted); font-family: var(--font-family);">
+                        Made with ❤️ by Waleed khaled<br>
+                        <a href="index.html" style="color: var(--gold); text-decoration: none;">← Back to Editor</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        const THEMES = ["theme-violet", "theme-amber", "theme-ocean", "theme-forest", "theme-sunset", "theme-cyberpunk"];
+        const THEME_INFO = {
+            "theme-violet": { symbol: "🌙", name: "Violet" },
+            "theme-amber": { symbol: "⭐", name: "Amber" },
+            "theme-ocean": { symbol: "🌊", name: "Ocean" },
+            "theme-forest": { symbol: "🌿", name: "Forest" },
+            "theme-sunset": { symbol: "🌅", name: "Sunset" },
+            "theme-cyberpunk": { symbol: "⚡", name: "Cyberpunk" }
+        };
+
+        function getCurrentTheme() {
+            const savedTheme = localStorage.getItem("selectedTheme");
+            return (savedTheme && THEMES.includes(savedTheme)) ? savedTheme : "theme-violet";
+        }
+
+        function getSavedLivePreview() {
+            const savedValue = localStorage.getItem("livePreviewEnabled");
+            return savedValue === null ? true : savedValue === "true";
+        }
+
+        let savedTheme = getCurrentTheme();
+        let savedLivePreview = getSavedLivePreview();
+        let pendingTheme = savedTheme;
+        let pendingLivePreview = savedLivePreview;
+
+        function applyThemeToPage(themeName) {
+            THEMES.forEach(theme => {
+                document.body.classList.remove(theme);
+            });
+            document.body.classList.add(themeName);
+            updateThemeDisplay();
+            document.querySelectorAll(".theme-option").forEach(btn => {
+                btn.classList.toggle("active", btn.getAttribute("data-theme") === themeName);
+            });
+        }
+
+        function setPendingTheme(themeName) {
+            if (pendingTheme === themeName) {
+                return;
+            }
+            pendingTheme = themeName;
+            applyThemeToPage(themeName);
+            updateApplyButtonVisibility();
+        }
+
+        function updateThemeDisplay() {
+            const info = THEME_INFO[pendingTheme];
+            document.getElementById("current-theme-symbol").textContent = info.symbol;
+            document.getElementById("current-theme-name").textContent = info.name;
+        }
+
+        function updateApplyButtonVisibility() {
+            const applyButton = document.getElementById("apply-settings");
+            if (!applyButton) {
+                return;
+            }
+            const hasChanges = pendingTheme !== savedTheme || pendingLivePreview !== savedLivePreview;
+            applyButton.style.display = hasChanges ? "inline-flex" : "none";
+        }
+
+        function saveSettings() {
+            savedTheme = pendingTheme;
+            savedLivePreview = pendingLivePreview;
+            localStorage.setItem("selectedTheme", savedTheme);
+            localStorage.setItem("livePreviewEnabled", savedLivePreview ? "true" : "false");
+            updateApplyButtonVisibility();
+        }
+
+        function initThemeSelector() {
+            const selector = document.getElementById("theme-selector");
+            THEMES.forEach(theme => {
+                const info = THEME_INFO[theme];
+                const button = document.createElement("button");
+                button.className = "theme-option";
+                button.setAttribute("data-theme", theme);
+                button.innerHTML = `
+                    <span class="theme-option-symbol">${info.symbol}</span>
+                    <span class="theme-option-name">${info.name}</span>
+                `;
+                button.addEventListener("click", () => setPendingTheme(theme));
+                selector.appendChild(button);
+            });
+            
+            // Mark current theme as active
+            applyThemeToPage(pendingTheme);
+        }
+
+        function exportToPDF() {
+            // Get preview content from main editor
+            const previewContent = document.querySelector("#preview-output");
+            
+            if (!previewContent) {
+                alert("Please write some markdown in the editor first!");
+                return;
+            }
+
+            if (!previewContent.innerHTML.trim()) {
+                alert("Nothing to export! Write some markdown first.");
+                return;
+            }
+
+            // Create a cloned version with computed styles
+            const clone = previewContent.cloneNode(true);
+            
+            // Get current theme colors
+            const computedStyle = getComputedStyle(document.body);
+            const bgColor = computedStyle.backgroundColor;
+            const textColor = computedStyle.color;
+
+            // Apply inline styles to preserve colors in PDF
+            const applyInlineStyles = (element) => {
+                const elements = element.querySelectorAll("*");
+                elements.forEach((el) => {
+                    const computed = getComputedStyle(el);
+                    el.style.color = computed.color;
+                    el.style.fontSize = computed.fontSize;
+                    el.style.fontWeight = computed.fontWeight;
+                    el.style.fontStyle = computed.fontStyle;
+                    el.style.textDecoration = computed.textDecoration;
+                    el.style.backgroundColor = computed.backgroundColor;
+                    el.style.padding = computed.padding;
+                    el.style.margin = computed.margin;
+                    el.style.borderColor = computed.borderColor;
+                    el.style.borderWidth = computed.borderWidth;
+                    el.style.borderStyle = computed.borderStyle;
+                });
+            };
+
+            applyInlineStyles(clone);
+            
+            // Create wrapper with background
+            const wrapper = document.createElement("div");
+            wrapper.style.backgroundColor = bgColor;
+            wrapper.style.color = textColor;
+            wrapper.style.padding = "20px";
+            wrapper.style.fontFamily = getComputedStyle(document.body).fontFamily;
+            wrapper.appendChild(clone);
+
+            // Use html2pdf library
+            const opt = {
+                margin: 10,
+                filename: "markdown-export.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    backgroundColor: null,
+                    logging: false,
+                    useCORS: true
+                },
+                jsPDF: { orientation: "portrait", unit: "mm", format: "a4" }
+            };
+
+            // Check if html2pdf is available
+            if (typeof html2pdf !== "undefined") {
+                html2pdf()
+                    .set(opt)
+                    .from(wrapper)
+                    .save()
+                    .catch((err) => {
+                        console.error("PDF export error:", err);
+                        alert("Error generating PDF. Please try again.");
+                    });
+            } else {
+                alert("PDF library not loaded. Please refresh the page and try again.");
+            }
+        }
+
+        // Initialize
+        function initLivePreviewControl() {
+            const livePreviewCheckbox = document.getElementById("live-preview");
+            if (!livePreviewCheckbox) {
+                return;
+            }
+            livePreviewCheckbox.checked = savedLivePreview;
+            livePreviewCheckbox.addEventListener("change", () => {
+                pendingLivePreview = livePreviewCheckbox.checked;
+                updateApplyButtonVisibility();
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Apply the current theme for this page preview
+            applyThemeToPage(pendingTheme);
+             
+            // Initialize theme selector
+            initThemeSelector();
+             
+            // Initialize live preview input state
+            initLivePreviewControl();
+
+            // Setup apply button
+            const applyButton = document.getElementById("apply-settings");
+            if (applyButton) {
+                applyButton.addEventListener("click", saveSettings);
+            }
+
+            // Setup PDF button
+            const pdfButton = document.getElementById("pdf-export");
+            if (pdfButton) {
+                pdfButton.addEventListener("click", exportToPDF);
+            }
+        });
+    </script>
+</body>
+</html>

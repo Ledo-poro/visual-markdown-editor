@@ -29,49 +29,42 @@ function initApp() {
     setPreviewContent(parseMarkdown(editor.value));
 
     let currentThemeIndex = 0;
-    
+
     if (themeButton && themeInfo) {
-        function updateTheme() {
+        const updateTheme = () => {
             const newTheme = THEMES[currentThemeIndex];
-            
-            // Remove all theme classes
-            THEMES.forEach(theme => {
+
+            THEMES.forEach((theme) => {
                 document.body.classList.remove(theme);
             });
-            
-            // Add new theme class
+
             document.body.classList.add(newTheme);
-            
-            // Update button text to show theme symbol
+
             const symbol = getThemeSymbol(newTheme);
             themeButton.textContent = `${symbol} Theme`;
             themeInfo.textContent = formatThemeName(newTheme);
-            
-            // Save preference
             localStorage.setItem("selectedTheme", newTheme);
-        }
-        
-        // Load saved theme or use default
+        };
+
         const savedTheme = localStorage.getItem("selectedTheme");
         if (savedTheme && THEMES.includes(savedTheme)) {
             currentThemeIndex = THEMES.indexOf(savedTheme);
         }
+
         updateTheme();
-        
+
         themeButton.addEventListener("click", () => {
             currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
             updateTheme();
         });
     }
-    
-    // Help button to show documentation
+
     if (helpButton) {
         helpButton.addEventListener("click", () => {
             showSymbolGuide();
         });
     }
 
-    // PDF export button
     if (pdfButton) {
         pdfButton.addEventListener("click", () => {
             exportToPDF();
@@ -101,7 +94,7 @@ function showSymbolGuide() {
             <div class="modal-content">
                 <button class="modal-close" id="close-guide">✕</button>
                 <h2>📚 Markdown & Theme Guide</h2>
-                
+
                 <section class="guide-section">
                     <h3>📝 Markdown Symbols</h3>
                     <table class="guide-table">
@@ -147,7 +140,7 @@ function showSymbolGuide() {
                         </tr>
                     </table>
                 </section>
-                
+
                 <section class="guide-section">
                     <h3>🎨 Color Themes</h3>
                     <div class="themes-grid">
@@ -183,7 +176,7 @@ function showSymbolGuide() {
                         </div>
                     </div>
                 </section>
-                
+
                 <section class="guide-section">
                     <h3>💡 Tips</h3>
                     <ul>
@@ -196,23 +189,21 @@ function showSymbolGuide() {
             </div>
         </div>
     `;
-    
-    // Add modal to DOM
+
     const body = document.body;
-    const modal = document.createElement('div');
+    const modal = document.createElement("div");
     modal.innerHTML = guideHTML;
     body.appendChild(modal);
-    
-    // Close button functionality
+
     const closeBtn = document.querySelector("#close-guide");
     const overlay = document.querySelector("#guide-overlay");
-    
+
     if (closeBtn) {
         closeBtn.addEventListener("click", () => {
             modal.remove();
         });
     }
-    
+
     if (overlay) {
         overlay.addEventListener("click", (e) => {
             if (e.target === overlay) {
@@ -229,15 +220,16 @@ function exportToPDF() {
         return;
     }
 
-    // Create a cloned version with computed styles
+    if (typeof window.html2pdf !== "function") {
+        alert("PDF library not loaded. Please refresh the page and try again.");
+        return;
+    }
+
     const clone = previewContent.cloneNode(true);
-    
-    // Get current theme colors
     const computedStyle = getComputedStyle(document.body);
     const bgColor = computedStyle.backgroundColor;
     const textColor = computedStyle.color;
 
-    // Apply inline styles to preserve colors in PDF
     const applyInlineStyles = (element) => {
         const elements = element.querySelectorAll("*");
         elements.forEach((el) => {
@@ -257,8 +249,7 @@ function exportToPDF() {
     };
 
     applyInlineStyles(clone);
-    
-    // Create wrapper with background
+
     const wrapper = document.createElement("div");
     wrapper.style.backgroundColor = bgColor;
     wrapper.style.color = textColor;
@@ -266,13 +257,12 @@ function exportToPDF() {
     wrapper.style.fontFamily = getComputedStyle(document.body).fontFamily;
     wrapper.appendChild(clone);
 
-    // Use html2pdf library
     const opt = {
         margin: 10,
         filename: "markdown-export.pdf",
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { 
-            scale: 2, 
+        html2canvas: {
+            scale: 2,
             backgroundColor: null,
             logging: false,
             useCORS: true
@@ -280,19 +270,18 @@ function exportToPDF() {
         jsPDF: { orientation: "portrait", unit: "mm", format: "a4" }
     };
 
-    // Check if html2pdf is available
-    if (typeof html2pdf !== "undefined") {
-        html2pdf()
-            .set(opt)
-            .from(wrapper)
-            .save()
-            .catch((err) => {
-                console.error("PDF export error:", err);
-                alert("Error generating PDF. Please try again.");
-            });
-    } else {
-        alert("PDF library not loaded. Please refresh the page and try again.");
-    }
+    window.html2pdf()
+        .set(opt)
+        .from(wrapper)
+        .save()
+        .catch((err) => {
+            console.error("PDF export error:", err);
+            alert("Error generating PDF. Please try again.");
+        });
 }
 
-initApp();
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initApp);
+} else {
+    initApp();
+}
