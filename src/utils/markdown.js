@@ -7,7 +7,6 @@ function parseMarkdown(text) {
         const trimmed = line.trim();
 
         if (!trimmed) {
-            // Empty line - flush any open list and add empty paragraph
             if (currentList.length > 0) {
                 html.push(`<ul>${currentList.join("")}</ul>`);
                 currentList = [];
@@ -16,31 +15,26 @@ function parseMarkdown(text) {
         }
 
         if (trimmed.startsWith("# ")) {
-            // Flush list before heading
             if (currentList.length > 0) {
                 html.push(`<ul>${currentList.join("")}</ul>`);
                 currentList = [];
             }
             html.push(`<h1>${formatInline(trimmed.slice(2))}</h1>`);
         } else if (trimmed.startsWith("## ")) {
-            // Flush list before heading
             if (currentList.length > 0) {
                 html.push(`<ul>${currentList.join("")}</ul>`);
                 currentList = [];
             }
             html.push(`<h2>${formatInline(trimmed.slice(3))}</h2>`);
         } else if (trimmed.startsWith("- ")) {
-            // Add to current list
             currentList.push(`<li>${formatInline(trimmed.slice(2))}</li>`);
         } else if (trimmed.startsWith("> ")) {
-            // Flush list before blockquote
             if (currentList.length > 0) {
                 html.push(`<ul>${currentList.join("")}</ul>`);
                 currentList = [];
             }
             html.push(`<blockquote>${formatInline(trimmed.slice(2))}</blockquote>`);
         } else {
-            // Regular paragraph - flush list first
             if (currentList.length > 0) {
                 html.push(`<ul>${currentList.join("")}</ul>`);
                 currentList = [];
@@ -49,7 +43,6 @@ function parseMarkdown(text) {
         }
     }
 
-    // Flush any remaining list
     if (currentList.length > 0) {
         html.push(`<ul>${currentList.join("")}</ul>`);
     }
