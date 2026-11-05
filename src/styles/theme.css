@@ -1,0 +1,206 @@
+/* ========== VIOLET THEME ========== */
+.theme-violet {
+    --panel: rgba(20, 15, 34, 0.92);
+    --panel-border: rgba(141, 92, 255, 0.24);
+    --text: #f6f1ff;
+    --muted: #cdbdf4;
+    --gold: #f6bf57;
+    --gold-strong: #ffd17c;
+    --purple: #8d5cff;
+    --purple-soft: rgba(141, 92, 255, 0.2);
+    --theme-symbol: "🌙";
+    --bg-gradient-1: rgba(141, 92, 255, 0.28);
+    --bg-gradient-2: rgba(248, 195, 95, 0.16);
+    --bg-base: #09070e;
+    --bg-accent: #150f24;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.theme-violet {
+    background:
+        radial-gradient(circle at top left, var(--bg-gradient-1), transparent 32%),
+        radial-gradient(circle at top right, var(--bg-gradient-2), transparent 36%),
+        linear-gradient(135deg, var(--bg-base), var(--bg-accent) 58%, #0b0812);
+    background-attachment: fixed;
+}
+
+/* ========== AMBER THEME ========== */
+.theme-amber {
+    --panel: rgba(35, 25, 12, 0.92);
+    --panel-border: rgba(248, 195, 95, 0.28);
+    --text: #fff6df;
+    --muted: #e8d4ab;
+    --gold: #ffc95c;
+    --gold-strong: #ffb347;
+    --purple: #a369ff;
+    --purple-soft: rgba(163, 105, 255, 0.2);
+    --theme-symbol: "⭐";
+    --bg-gradient-1: rgba(255, 180, 80, 0.3);
+    --bg-gradient-2: rgba(255, 200, 100, 0.15);
+    --bg-base: #1a130a;
+    --bg-accent: #2a1f10;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    --font-family: "Georgia", serif;
+}
+
+.theme-amber {
+    background:
+        radial-gradient(circle at top left, var(--bg-gradient-1), transparent 32%),
+        radial-gradient(circle at top right, var(--bg-gradient-2), transparent 36%),
+        linear-gradient(135deg, var(--bg-base), var(--bg-accent) 58%, #140d06);
+    background-attachment: fixed;
+}
+
+/* ========== OCEAN THEME ========== */
+.theme-ocean {
+    --panel: rgba(10, 30, 50, 0.92);
+    --panel-border: rgba(80, 180, 255, 0.28);
+    --text: #e0f4ff;
+    --muted: #a8d5ff;
+    --gold: #50b4ff;
+    --gold-strong: #7dc9ff;
+    --purple: #00d9ff;
+    --purple-soft: rgba(0, 217, 255, 0.2);
+    --theme-symbol: "🌊";
+    --bg-gradient-1: rgba(0, 150, 200, 0.25);
+    --bg-gradient-2: rgba(80, 180, 255, 0.15);
+    --bg-base: #0a1420;
+    --bg-accent: #0d1a2e;
+    --shadow: 0 20px 60px rgba(0, 100, 150, 0.4);
+    --font-family: "Courier New", monospace;
+}
+
+.theme-ocean {
+    background:
+        radial-gradient(circle at top left, var(--bg-gradient-1), transparent 32%),
+        radial-gradient(circle at top right, var(--bg-gradient-2), transparent 36%),
+        linear-gradient(135deg, var(--bg-base), var(--bg-accent) 58%, #061218);
+    background-attachment: fixed;
+}
+
+/* ========== FOREST THEME ========== */
+.theme-forest {
+    --panel: rgba(15, 32, 20, 0.92);
+    --panel-border: rgba(100, 200, 120, 0.28);
+    --text: #e8f5e9;
+    --muted: #b8d9c0;
+    --gold: #64c878;
+    --gold-strong: #7fd896;
+    --purple: #52d950;
+    --purple-soft: rgba(82, 217, 80, 0.2);
+    --theme-symbol: "🌿";
+    --bg-gradient-1: rgba(100, 200, 120, 0.25);
+    --bg-gradient-2: rgba(120, 200, 100, 0.12);
+    --bg-base: #0d1810;
+    --bg-accent: #122318;
+    --shadow: 0 20px 60px rgba(0, 100, 50, 0.35);
+    --font-family: "Trebuchet MS", sans-serif;
+}
+
+.theme-forest {
+    background:
+        radial-gradient(circle at top left, var(--bg-gradient-1), transparent 32%),
+        radial-gradient(circle at top right, var(--bg-gradient-2), transparent 36%),
+        linear-gradient(135deg, var(--bg-base), var(--bg-accent) 58%, #0a140e);
+    background-attachment: fixed;
+}
+
+/* ========== SUNSET THEME ========== */
+.theme-sunset {
+    --panel: rgba(50, 20, 15, 0.92);
+    --panel-border: rgba(255, 140, 80, 0.28);
+    --text: #ffe8d6;
+    --muted: #ffb8a0;
+    --gold: #ff8c50;
+    --gold-strong: #ffaa70;
+    --purple: #ff6b6b;
+    --purple-soft: rgba(255, 107, 107, 0.2);
+    --theme-symbol: "🌅";
+    --bg-gradient-1: rgba(255, 120, 70, 0.3);
+    --bg-gradient-2: rgba(255, 150, 100, 0.15);
+    --bg-base: #220f0a;
+    --bg-accent: #3a1810;
+    --shadow: 0 20px 60px rgba(150, 50, 20, 0.4);
+    --font-family: "Comic Sans MS", cursive;
+}
+
+.theme-sunset {
+    background:
+        radial-gradient(circle at top left, var(--bg-gradient-1), transparent 32%),
+        radial-gradient(circle at top right, var(--bg-gradient-2), transparent 36%),
+        linear-gradient(135deg, var(--bg-base), var(--bg-accent) 58%, #1a0a05);
+    background-attachment: fixed;
+}
+
+/* ========== CYBERPUNK THEME ========== */
+.theme-cyberpunk {
+    --panel: rgba(10, 10, 25, 0.92);
+    --panel-border: rgba(255, 0, 255, 0.32);
+    --text: #00ffff;
+    --muted: #ff00ff;
+    --gold: #ff0080;
+    --gold-strong: #ff00ff;
+    --purple: #00ffff;
+    --purple-soft: rgba(0, 255, 255, 0.2);
+    --theme-symbol: "⚡";
+    --bg-gradient-1: rgba(0, 255, 255, 0.25);
+    --bg-gradient-2: rgba(255, 0, 255, 0.15);
+    --bg-base: #000d1a;
+    --bg-accent: #0a0020;
+    --shadow: 0 20px 60px rgba(255, 0, 255, 0.3);
+    --font-family: "Courier New", monospace;
+}
+
+.theme-cyberpunk {
+    background:
+        radial-gradient(circle at top left, var(--bg-gradient-1), transparent 32%),
+        radial-gradient(circle at top right, var(--bg-gradient-2), transparent 36%),
+        linear-gradient(135deg, var(--bg-base), var(--bg-accent) 58%, #0a0015);
+    background-attachment: fixed;
+}
+
+.theme-cyberpunk #editor-input,
+.theme-cyberpunk .preview-output,
+.theme-cyberpunk textarea {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.3) !important;
+}
+
+.theme-cyberpunk .topbar {
+    border-bottom-color: var(--gold);
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.2);
+}
+
+button.ghost-button {
+    border: 1px solid var(--gold);
+    background: rgba(248, 195, 95, 0.12);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease, border 0.18s ease;
+    font-family: var(--font-family);
+    font-weight: 500;
+}
+
+button.ghost-button:hover {
+    transform: translateY(-2px);
+    background: var(--purple-soft);
+    border-color: var(--purple);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+button.ghost-button:active {
+    transform: translateY(0);
+}
+
+.preview-output p,
+.preview-output ul,
+.preview-output ol,
+.preview-output blockquote,
+.preview-output h1,
+.preview-output h2,
+.preview-output h3 {
+    margin-top: 0;
+}
